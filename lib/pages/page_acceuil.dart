@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_api_rest_boutique/components/end_drawer_perso.dart';
 import 'package:app_api_rest_boutique/services/api_services.dart';
+import 'package:app_api_rest_boutique/utils/routeur.dart';
 import 'package:flutter/material.dart';
 
 class PageAcceuil extends StatefulWidget {
@@ -46,47 +47,66 @@ class _PageAcceuilState extends State<PageAcceuil> {
       ),
 
       body: Center(
-        child: SafeArea(
-          bottom: true,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Theme.of(context).colorScheme.primary,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : SafeArea(
+                bottom: true,
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 3,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
 
-            child: _isLoading
-                ? CircularProgressIndicator()
-                : ((data.isNotEmpty)
+                  child: ((data.isNotEmpty)
                       ? ListView.separated(
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage("https://i.pravatar.cc/150?img=${data[index]["id"]}"),
-                              radius: 60,
-                            ),
-                            title: Text(data[index]["name"]),
-                            subtitle: Text(data[index]["email"]),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            thickness: 4,
-                          );
-                        },
-                        itemCount: data.length,
-                      )
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context, 
+                                  Routeur.detailsProfil,
+                                  arguments: {
+                                    "id": data[index]["id"],
+                                    "name": data[index]["name"],
+                                    "email": data[index]["email"],
+                                    "image": "https://i.pravatar.cc/150?img=${data[index]["id"]}",
+
+                                  }
+                                  );
+                              },
+                              leading: Hero(
+                                // le widget hero permet de lier deux widgets pour l'animation
+                                tag: data[index]["id"],
+                                child: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                    "https://i.pravatar.cc/150?img=${data[index]["id"]}",
+                                  ),
+                                  radius: 60,
+                                ),
+                              ),
+                              title: Text(data[index]["name"]),
+                              subtitle: Text(data[index]["email"]),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              thickness: 4,
+                            );
+                          },
+                          itemCount: data.length,
+                        )
                       : Text(
                           "Liste vide !",
                           style: Theme.of(context).textTheme.headlineMedium,
                         )),
-          ),
-        ),
+                ),
+              ),
       ),
     );
   }

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Le modèle MVVM regroupe trois parties
+// Le View qui gère l'affichage (pages...)
+// Le ViewModel qui prépare et gère le traitement les données
+// le Model qui définit la struture de la donnée
+// 
+
 // ThemePerso n'a pas besoin d'être instancié donc il est abstract
 abstract class ThemePerso {
   static final modeClair = ThemeData(
@@ -9,12 +15,20 @@ abstract class ThemePerso {
       seedColor: Colors.white,
       primary: Colors.greenAccent,
       secondary: Colors.pink.shade800,
-      tertiary: Colors.blueGrey.shade300,
+      tertiary: Colors.greenAccent.shade200,
+      // tertiary: Color(0xFF9EEFFD),
+
+      // tertiary: Color.fromARGB(255, 219, 250, 255),
       error: Colors.red,
     ),
 
-    // Permet d'utiliser le material de la version 3
+    // Permet d'utiliser le material de la version 3 qui permet d'utiliser les derniers modèlles vancées e n design
     useMaterial3: true,
+
+    // listTileTheme: ListTileThemeData(
+    //   selectedTileColor: Colors.greenAccent.shade100,
+    //   selectedColor: Colors.black,
+    // ),
 
     // Definir les couleurs de l'appBar
     appBarTheme: AppBarTheme(
@@ -67,19 +81,19 @@ abstract class ThemePerso {
       bodyLarge: TextStyle(
         color: Colors.black,
         fontSize: 20,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
       ),
 
       bodyMedium: TextStyle(
         color: Colors.black,
         fontSize: 16,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
       ),
 
       bodySmall: TextStyle(
         color: Colors.black,
         fontSize: 14,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
       ),
     ),
   );

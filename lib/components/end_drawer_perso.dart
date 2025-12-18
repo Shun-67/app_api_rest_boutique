@@ -1,3 +1,4 @@
+import 'package:app_api_rest_boutique/utils/routeur.dart';
 import 'package:flutter/material.dart';
 
 class EndDrawerPerso extends StatefulWidget {
@@ -10,6 +11,8 @@ class EndDrawerPerso extends StatefulWidget {
 class _EndDrawerPersoState extends State<EndDrawerPerso> {
   @override
   Widget build(BuildContext context) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+
     return Drawer(
       child: ListView(
         children: [
@@ -24,13 +27,14 @@ class _EndDrawerPersoState extends State<EndDrawerPerso> {
           ),
 
           ListTile(
+            selected: currentRoute == Routeur.pageAcceuil,
             leading: Icon(Icons.home),
-            tileColor: Theme.of(context).colorScheme.tertiary,
+            // tileColor: Theme.of(context).colorScheme.tertiary,
             title: Text("Acceuil"),
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                "/page-acceuil",
+                Routeur.pageAcceuil,
                 (predicate) => false,
               );
             },
@@ -39,13 +43,14 @@ class _EndDrawerPersoState extends State<EndDrawerPerso> {
           Divider(color: Theme.of(context).colorScheme.tertiary, thickness: 2),
 
           ListTile(
+            selected: currentRoute == Routeur.pageCompteur,
             leading: Icon(Icons.countertops),
-            tileColor: Theme.of(context).colorScheme.tertiary,
+            // tileColor: Theme.of(context).colorScheme.tertiary,
             title: Text("Compteur"),
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                "/page-compteur",
+                Routeur.pageCompteur,
                 (predicate) => false,
               );
             },
@@ -53,29 +58,31 @@ class _EndDrawerPersoState extends State<EndDrawerPerso> {
 
           Divider(color: Theme.of(context).colorScheme.tertiary, thickness: 2),
 
-          ListTile(
-            leading: Icon(Icons.person),
-            tileColor: Theme.of(context).colorScheme.tertiary,
-            title: Text("Détails profil"),
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                "/page-details-profil",
-                (predicate) => false,
-              );
-            },
-          ),
+          // ListTile(
+          //   selected: currentRoute == Routeur.detailsProfil,
+          //   leading: Icon(Icons.person),
+          //   // tileColor: Theme.of(context).colorScheme.tertiary,
+          //   title: Text("Détails profil"),
+          //   onTap: () {
+          //     Navigator.pushNamedAndRemoveUntil(
+          //       context,
+          //       Routeur.detailsProfil,
+          //       (predicate) => false,
+          //     );
+          //   },
+          // ),
 
-          Divider(color: Theme.of(context).colorScheme.tertiary, thickness: 2),
+          // Divider(color: Theme.of(context).colorScheme.tertiary, thickness: 2),
 
           ListTile(
+            // selected: currentRoute == Routeur.detailsProfil,
             leading: Icon(Icons.shop),
-            tileColor: Theme.of(context).colorScheme.tertiary,
+            // tileColor: Theme.of(context).colorScheme.tertiary,
             title: Text("Boutique"),
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                "/page-boutique",
+                Routeur.pageBoutique,
                 (predicate) => false,
               );
             },
